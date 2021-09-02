@@ -8,11 +8,18 @@ const io = require('socket.io')(server, {
 });
 const socket = require("socket.io-client")("http://172.18.154.173:8080/", {
 	secure: false,
+	reconnect: false,
 	rejectUnauthorized: false
 });
 
-io.on('connection', () => {
-	console.log("Connected")
+io.on('connection', client => {
+	client.on('move_placed', (x,y) => {
+		console.log("A move was placed")
+	})
+	client.on('join_game', (room) => {
+		client.join(room)
+		io.to(room).emit('new_game', room)
+	})
 });
 server.listen(3000);
 
