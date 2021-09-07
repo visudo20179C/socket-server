@@ -1,13 +1,13 @@
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, {
-  cors: {
-    origin: "http://172.18.154.173:8080",
-    methods: ["GET", "POST"]
-  }
+	cors: {
+		origin: "https://connect-four.visudo.me/",
+		methods: ["GET", "POST"]
+	}
 });
-const socket = require("socket.io-client")("http://172.18.154.173:8080/", {
-	secure: false,
+const socket = require("socket.io-client")("https://connect-four.visudo.me/", {
+	secure: true,
 	reconnect: false,
 	rejectUnauthorized: false
 });
