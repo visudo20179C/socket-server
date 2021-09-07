@@ -27,5 +27,5 @@ io.on('connection', client => {
 		io.to(room).emit('player_left')
 	})
 });
-server.listen(3000);
+module.exports = server.listen(3000);
 
