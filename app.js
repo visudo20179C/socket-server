@@ -1,8 +1,15 @@
+const fs = require('fs')
+
+const options = {
+	key: fs.readFileSync('privkey.pem'),
+	cert: fs.readFileSync('fullchain.pem')
+}
+
 const app = require('express')();
-const server = require('http').createServer(app);
+const server = require('https').createServer(options, app);
 const io = require('socket.io')(server, {
 	cors: {
-		origin: "https://connect-four.visudo.me/",
+		origin: "https://connect-four.visudo.me",
 		methods: ["GET", "POST"]
 	}
 });
@@ -27,5 +34,5 @@ io.on('connection', client => {
 		io.to(room).emit('player_left')
 	})
 });
-module.exports = server.listen(3000);
+server.listen(3000);
 
