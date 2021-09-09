@@ -12,9 +12,15 @@ You can change this to any other host, including wildcards such as `*` for **all
 
 In Production the server needs a valid CA SSL Cert, i.e. you can't use a self-signed cert.
 
-There are sereval ways to do this, but I used [certbot](https://certbot.eff.org/) to generate an CA SSL cert on my Ubuntu 16.04 machine.
+There are sereval ways to do this, but I used [certbot](https://certbot.eff.org/) to generate a CA SSL cert on my Ubuntu 16.04 machine.
 
-You also need a dedicated host and correctly configured DNS for this to work.
+You also need a dedicated host and correctly configured DNS.
+
+Even if your CA Cert is aquired and valid, connecting like this via IPv4 won't work:
+
+```
+https://X.X.X.X:3000/
+```
 
 ## Development
 
