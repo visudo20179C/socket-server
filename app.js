@@ -1,12 +1,5 @@
-const fs = require('fs')
-
-const options = {
-	key: fs.readFileSync('privkey.pem'),
-	cert: fs.readFileSync('fullchain.pem')
-}
-
 const app = require('express')();
-const server = require('https').createServer(options, app);
+const server = require('http').createServer(app);
 const io = require('socket.io')(server, {
 	cors: {
 		origin: "https://connect-four.visudo.me",
