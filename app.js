@@ -17,9 +17,12 @@ io.on('connection', client => {
 		io.to(room).emit('move_placed_received',x,y)
 	})
 	client.on('join_game', (room, clientId) => {
-		if(room != client) {
+		if(room != clientId) {
 			client.join(room)
 			io.to(room).emit('new_game', room, clientId)
+		}
+		else if(room == clientId) {
+			io.to(room).emit('error_same_room')
 		}
 	})
 	client.on('leave_game', (room) => {
