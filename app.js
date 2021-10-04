@@ -17,12 +17,18 @@ io.on('connection', client => {
 		io.to(room).emit('move_placed_received',x,y)
 	})
 	client.on('join_game', (room, clientId) => {
-		if(room != clientId) {
+		if(room != clientId && io.sockets.adapter.rooms.get(room) != undefined && io.sockets.adapter.rooms.get(room).size == 1) {
 			client.join(room)
 			io.to(room).emit('new_game', room, clientId)
 		}
+		else if(io.sockets.adapter.rooms.get(room) == undefined) {
+			io.to(clientId).emit('error_no_room')
+		}
 		else if(room == clientId) {
 			io.to(room).emit('error_same_room')
+		}
+		else {
+			io.to(clientId).emit('error_room_full')
 		}
 	})
 	client.on('leave_game', (room) => {
