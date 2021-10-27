@@ -35,6 +35,9 @@ io.on('connection', client => {
 		client.leave(room)
 		io.to(room).emit('player_left')
 	})
+	client.on('error_timed_out', (player, room) => {
+		   io.to(room).emit('error_player_timed_out', player)
+	})
 });
 server.listen(3000);
 
